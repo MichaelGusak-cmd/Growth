@@ -5,8 +5,8 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float panic; 
-    private float food;
+    private float panic = 1f; 
+    private float food = 1f;
     private List<PowerPoint> powerPoints = new List<PowerPoint>();
 
 

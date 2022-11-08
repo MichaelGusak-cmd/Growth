@@ -7,9 +7,11 @@ public class MouseControl : MonoBehaviour
     public Camera camera;
     public GameObject Line;
     private LineRenderer lineRenderer;
+    private List<GameObject> selectedUnits;
     // Start is called before the first frame update
     void Start()
     {
+        selectedUnits = new List<GameObject>();
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         lineRenderer = Line.GetComponent<LineRenderer>();
@@ -41,7 +43,18 @@ public class MouseControl : MonoBehaviour
 
 
         if (mouseButtonPressed >= 0 && !placed) {
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+
+            if (mouseButtonPressed == 0) {
+                gameObject.tag = "ControlWeak";
+                sprite.color = new Color(1,0,0, 0.2f);
+            }
+            else if (mouseButtonPressed == 1) {
+                gameObject.tag = "ControlStrong";
+                sprite.color = new Color(0,1,0, 0.2f);
+            }
+
+            sprite.enabled = true;
             Vector3 mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 10.0f;
             transform.localPosition = mousePos;
@@ -63,6 +76,15 @@ public class MouseControl : MonoBehaviour
         placed = false;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         lineRenderer.enabled = false;
+        gameObject.transform.localPosition = new Vector3(-1000,-1000,10); //move collider far out of bounds so it can trigger things again
+        for (int i = 0; i < selectedUnits.Count; i++) {
+            Controllable c = selectedUnits[i].GetComponent<Controllable>();
+            Vector3[] positions = new Vector3[2];
+            lineRenderer.GetPositions(positions);
+            c.moveDir = positions[1] - positions[0];
+            c.newCommand = true;
+        }
+        selectedUnits.Clear();
     }
 
     private Vector3? GetCurrentMousePosition()
@@ -78,5 +100,9 @@ public class MouseControl : MonoBehaviour
          }
  
          return null;
+     }
+
+     public void addToUnits(GameObject g) {
+        selectedUnits.Add(g);
      }
 }
