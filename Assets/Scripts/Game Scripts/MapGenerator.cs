@@ -7,7 +7,9 @@ public class MapGenerator : MonoBehaviour
 {
     public GameObject tilemapObject;
     private Tilemap tilemap;
-    public TileBase tile;
+    public TileBase WallTile;
+    public TileBase FloorTile;
+
     public int width;
     public int height;
     // Start is called before the first frame update
@@ -33,10 +35,13 @@ public class MapGenerator : MonoBehaviour
             //Loop through the height of the map
             for (int y = 0; y < map.GetUpperBound(1); y++)
             {
-                // 1 = tile, 0 = no tile
                 if (map[x, y] == 1)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    tilemap.SetTile(new Vector3Int(x, y, 0), WallTile);
+                }
+                else 
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), FloorTile);
                 }
             }
         }
