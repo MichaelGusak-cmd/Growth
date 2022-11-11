@@ -46,6 +46,7 @@ class Ant {
 
 public class MapGenerator : MonoBehaviour
 {
+    public bool disabled = false;
     public GameObject FloorTilemapObject;
     public GameObject WallTilemapObject;
     private Tilemap FloorTilemap;
@@ -60,6 +61,7 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!disabled) {
         FloorTilemap = FloorTilemapObject.GetComponent<Tilemap>();
         WallTilemap = WallTilemapObject.GetComponent<Tilemap>();
 
@@ -70,6 +72,7 @@ public class MapGenerator : MonoBehaviour
 
         //map = GenerateRandomWalk(map, width);
         RenderMap(map);
+        }
     }
 
     // Update is called once per frame
