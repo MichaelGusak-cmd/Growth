@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoUnit : MonoBehaviour
+public class BetaHuman : UnitBase
 {
+    public BetaHuman(int hp, int dmg) : base(hp, dmg) {
+    }
+    void Start(){
+        gameObject.tag = "HumanStrong";
+    }
     void Update()
     {
         //Move units
@@ -22,12 +27,8 @@ public class ProtoUnit : MonoBehaviour
         switch (tag)
         {
             case "ControlWeak": //mouse control for weak
-                Debug.Log("WEAK CONTROL");
-                other.gameObject.GetComponent<MouseControl>().addToUnits(gameObject);
                 break;
             case "ControlStrong": //mouse control for strong
-                Debug.Log("STRONG CONTROL");
-                other.gameObject.GetComponent<MouseControl>().addToUnits(gameObject);
                 break;
             case "ProtoPowerPoint":
                 break;

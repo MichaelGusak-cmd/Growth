@@ -27,11 +27,9 @@ public class PowerPoint : MonoBehaviour
         switch (tag)
         {
             case "ControlWeak": //mouse control for weak
-                Debug.Log("WEAK CONTROL");
                 spawn = 0;
                 break;
             case "ControlStrong": //mouse control for strong
-                Debug.Log("STRONG CONTROL");
                 spawn = 1;
                 break;
         }
@@ -39,9 +37,8 @@ public class PowerPoint : MonoBehaviour
         if (spawn >= 0) {
             if (prefabs[spawn] != null) {
                 if (main.getFood() > costs[spawn]) {
-                    Debug.Log("instantiating");
                     GameObject g = Instantiate(prefabs[spawn], transform.localPosition, Quaternion.identity);
-                    g.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f));
+                    //g.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f));
                 }
             }
         }
